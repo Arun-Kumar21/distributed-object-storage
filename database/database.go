@@ -10,12 +10,14 @@ import (
 	"gorm.io/gorm"
 )
 
+var DB *gorm.DB
+
 func ConnectDB() {
 	godotenv.Load()
 
 	dsn := "host=localhost user=" + os.Getenv("POSTGRES_USER") + 
 			" password=" + os.Getenv("POSTGRES_PASSWORD") + 
-			" dname=" + os.Getenv("POSTGRES_DB") + 
+			" dbname=" + os.Getenv("POSTGRES_DB") + 
 			" port=5432 sslmode=disable TimeZone=Asia/Kolkata"
 	
 	db, err := 	gorm.Open(postgres.Open(dsn), &gorm.Config{})
