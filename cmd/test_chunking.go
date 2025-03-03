@@ -8,7 +8,7 @@ import (
 	"github.com/Arun-Kumar21/distributed-object-storage/internal/chunking"
 )
 
-func main() {
+func testChunking() {
 	testfile := "test_file.txt"
 	err := os.WriteFile(testfile, []byte("This is test file to verify chunking."), 0644)
 
