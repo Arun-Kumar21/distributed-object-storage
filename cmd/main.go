@@ -2,17 +2,31 @@ package main
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/Arun-Kumar21/distributed-object-storage/internal/p2p"
 )
 
 func main() {
-	node := &p2p.Node{Address: "localhost:9000"}
-	go node.StartNode()
+	node1 := &p2p.Node{
+		Address: "localhost:9001", 
+		Peers: make(map[string]bool), 
+		PeerFile: "peer1.json",
+	}
 
-	time.Sleep(2 * time.Second)
+	node2 := &p2p.Node{
+		Address: "localhost:9002",
+		Peers: make(map[string]bool),
+		PeerFile: "peer2.json",
+	}
 
-	fmt.Println("Sending message...")
-	p2p.SendMessage("localhost:9000", "Hello peer")
+	node1.LoadPeer()
+	node2.LoadPeer()
+
+	go node1.StartListening()
+	go node2.StartListening()
+
+	node2.ConnectToPeer("localhost:9001")
+
+	fmt.Println("Node1 Peers:", node1.Peers)
+	fmt.Println("Node2 Peers:", node2.Peers)
 }

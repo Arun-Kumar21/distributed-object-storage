@@ -12,6 +12,7 @@ func SendMessage(peerAddr string, message string) {
 		return
 	}
 
+
 	defer conn.Close()
 
 	if conn == nil {
